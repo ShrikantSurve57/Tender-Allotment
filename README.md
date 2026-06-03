@@ -1,8 +1,8 @@
-<a href="http://ec2-13-233-71-174.ap-south-1.compute.amazonaws.com:8080/tendermanagement/" alt="Tender Management System Java Project" target="_blank">**Tender Management System**</a><br><br>
+<a href="http://ec2-13-233-71-174.ap-south-1.compute.amazonaws.com:8080/tendermanagement/" alt="Tender Management System Java Project" target="_blank">**Tender Allotment System**</a><br><br>
 - **Youtube VIDEO** for local setup of this project: https://www.youtube.com/watch?v=7CE3aY4e644
 - **Youtube VIDEO** for Local Setup of similar project : https://youtu.be/mLFPodZO8Iw
 ### Login Credentials:
-	User Login: shashi@gmail.com/shashi
+	User Login: shrisurve7757@gmail.com/1234
 	Admin Login: Admin/Admin
 Whenever a company  requires a service / merchandise , a tender is floated. Company maintains an empaneled list of Vendors. An empaneled vendor can only bid for a tender. Every vendor can bid only once against   each tender. Against each tender there may be   bids from several vendors. The company will then select the most suitable bid and places the order to that vendor.
 <!--
@@ -109,7 +109,7 @@ commit;
 ### ====== Importing and Running the Project Through Eclipse EE ===========
 Step 0: Open Eclipse Enterprise Edition. [Install if not available]
 
-Step 1: Click On File > Import > Git > Projects From Git > Clone Uri  > Paste The Repository Url: ```https://github.com/shashirajraja/Tender-Management-System.git``` > Next > Select Master Branch > Select Tender-Management-System\tendermanagement (Eclipse Project) > Next > Finish
+Step 1: Click On File > Import > Git > Projects From Git > Clone Uri  > Paste The Repository Url: ```https://github.com/ShrikantSurve57/Tender-Allotment.git``` > Next > Select Master Branch > Select Tender-Management-System\tendermanagement (Eclipse Project) > Next > Finish
 
 Step 2.a: Go inside ```tendermanagement > Java Resources > dbdetails.properties``` and update the value of username and password according to your installed mysql admin credentials
 
@@ -127,7 +127,7 @@ Step 6: Check Running The Site At  <a Href="http://localhost:8083/tendermanageme
 
 Step 7: Default Username And Password For Admin Is "Admin" and "Admin" respectively. [Case-Sensitive]
 
-Step 8: Default Username And Password For User Is "shashi@gmail.com" and "shashi" respectively.
+Step 8: Default Username And Password For User Is "shrisurve7757@gmail.com" and "1234" respectively.
 
 
 
@@ -135,4 +135,4 @@ Step 8: Default Username And Password For User Is "shashi@gmail.com" and "shashi
 
 <bold>Thanks a lot</bold><br/>
                                                                                                         Project Leader<br/>
-                                                                                                         <b>Shashi Raj</b>
+                                                                                                         <b>Shrikant Surve</b>
