@@ -66,43 +66,154 @@ STEP 2: Login to the administrator user as : ```mysql -u <username> -p``` (Enter
 
 STEP 3: Copy paste the following MySql Commands-
 ```MySQL
-create database tender;
+CREATE DATABASE tender;
 
-commit;
+USE tender;
 
-use tender;
+-- =========================
+-- NOTICE TABLE
+-- =========================
+CREATE TABLE notice (
+    id INT(3) NOT NULL AUTO_INCREMENT,
+    title VARCHAR(100),
+    info VARCHAR(300),
+    PRIMARY KEY(id)
+);
 
-create table notice(id int(3) not null auto_increment, title varchar(35),info varchar(300), primary key(id));
+ALTER TABLE notice AUTO_INCREMENT = 1;
 
-alter table notice AUTO_INCREMENT = 1;
+-- =========================
+-- VENDOR TABLE
+-- =========================
+CREATE TABLE vendor (
+    vid VARCHAR(15) PRIMARY KEY,
+    password VARCHAR(20),
+    vname VARCHAR(30),
+    vmob VARCHAR(12),
+    vemail VARCHAR(40),
+    company VARCHAR(30),
+    address VARCHAR(100)
+);
 
+-- =========================
+-- TENDER TABLE
+-- =========================
+CREATE TABLE tender (
+    tid VARCHAR(15) PRIMARY KEY,
+    tname VARCHAR(60),
+    ttype VARCHAR(20),
+    tprice INT,
+    tdesc VARCHAR(300),
+    tdeadline DATE,
+    tloc VARCHAR(70)
+);
 
-create table vendor(vid varchar(15) primary key,password varchar(20),vname varchar(30),vmob varchar(12),
-		vemail varchar(40),company varchar(15),address varchar(100));
+-- =========================
+-- BIDDER TABLE
+-- =========================
+CREATE TABLE bidder (
+    bid VARCHAR(15) PRIMARY KEY,
+    vid VARCHAR(15),
+    tid VARCHAR(15),
+    bidamount INT,
+    deadline DATE,
+    status VARCHAR(10),
 
+    FOREIGN KEY (vid) REFERENCES vendor(vid),
+    FOREIGN KEY (tid) REFERENCES tender(tid)
+);
 
-create table tender(tid varchar(15) primary key,tname varchar(40),ttype varchar(20),tprice int,
-		    tdesc varchar(300),tdeadline date,tloc varchar(70));
+-- =========================
+-- TENDER STATUS TABLE
+-- =========================
+CREATE TABLE tenderstatus (
+    tid VARCHAR(15) PRIMARY KEY,
+    bid VARCHAR(15),
+    status VARCHAR(15) NOT NULL,
+    vid VARCHAR(15),
 
-create table bidder (bid varchar(15) primary key,vid varchar(15) references vendor(vid),tid varchar(15) references tender(tid),
-		bidamount int,deadline date,status varchar(10));
+    FOREIGN KEY (tid) REFERENCES tender(tid),
+    FOREIGN KEY (bid) REFERENCES bidder(bid),
+    FOREIGN KEY (vid) REFERENCES vendor(vid)
+);
 
+-- =========================
+-- INSERT INTO TENDER
+-- =========================
+INSERT INTO tender VALUES
+('T1001','Metro Rail Construction','Construction',5000000,
+ 'Pune Metro Phase 2 construction work',
+ '2026-07-15','Pune, Maharashtra'),
 
-create table tenderstatus(tid varchar(15) primary key references tender(tid),bid varchar(15) references bidder(bid),
-		status varchar(15) not null,vid varchar(15) references vendor(vid));
+('T1002','Hospital Management System','Software',750000,
+ 'Development of hospital management web application',
+ '2026-07-20','Mumbai, Maharashtra'),
 
-INSERT INTO tender VALUES ('T20190725022124','Gandhi Setu Highway','maintainence',50000,'lkjhgfd','2019-07-19','Patna, Bihar'),('T20190725022416','MEGA CITY CONNECTING ROAD CONTRUCTION','construction',100000,'mega city road contruction','2019-09-14','Delhi'),('T20190725022601','KOKATA HALDIA BRIDGE CONTRUCTION','construction',5000000,'bridge contruction from kolkata to haldia','2019-07-28','KOLATA-HALDIA'),('T20190725101239','Game Development','software',150000,'We are going to start a project on game development using GPS specification. Interested condidates are required to bid as soon as possible','2019-07-19','Banglore, India'),('T20190725101322','Game Development','software',150000,'We are going to start a project on game development using GPS specification. Interested condidates are required to bid as soon as possible','2019-07-19','Banglore, India');
+('T1003','Smart City Road Project','Maintenance',2500000,
+ 'Road repairing and smart traffic system installation',
+ '2026-08-01','Nagpur, Maharashtra'),
 
+('T1004','College ERP System','Software',450000,
+ 'ERP system for student and faculty management',
+ '2026-07-25','Pune, Maharashtra'),
 
-INSERT INTO notice VALUES (2,'Gandhi Setu Repairing','Repairing work is going to be started tommorow'),(3,'KOLKATA-HALDIA BRIDGE CONTRUCTION','ASSINGNED ENGINEER NEED TO REPORT AT THE CONSTRUCTION SITE BY TOMMOROW');
+('T1005','Bridge Construction Project','Construction',8000000,
+ 'Construction of river bridge connecting two villages',
+ '2026-08-10','Nashik, Maharashtra');
 
-INSERT INTO vendor VALUES ('V20190725020951','piyush','Piyush Vikas','07501 070485','piyush@gmail.com','Infosys','K-3, LANE NO-6 AYODHAYAPURI NEAR AIRTEL TOWER'),('V20190725022813','ravi','Ravi Rishu','12345679','ravi@gmail.com','Infosys','Dhanbad ,Jharkhand'),('V20190725023446','ayush','Ayush Vikas','6789054321','ayush@gmail.com','Infosys','siwan near durga mandir, bihar '),('V20190725100730','shashi','Shashi Raj','9234567689','shashi@gmail.com','Wipro','Belhariya More, Kolkata, WB ');
+-- =========================
+-- INSERT INTO NOTICE
+-- =========================
+INSERT INTO notice VALUES
+(1,'Metro Project Started',
+ 'All assigned engineers must report to Pune Metro office tomorrow'),
 
-INSERT INTO bidder VALUES ('B20190725022953','V20190725022813','T20190725022124',51000,'2019-07-19','Pending'),('B20190725023010','V20190725022813','T20190725022124',52000,'2019-07-19','Accepted'),('B20190725023248','V20190725022813','T20190725022416',100001,'2019-09-14','Rejected'),('B20190725023512','V20190725023446','T20190725022416',200000,'2019-09-14','Accepted'),('B20190725024125','V20190725023446','T20190725022601',5000001,'2019-07-28','Rejected'),('B20190725024243','V20190725022813','T20190725022601',6000000,'2019-07-28','Accepted'),('B20190725101444','V20190725100730','T20190725101322',1500000,'2019-07-19','Rejected'),('B20190725101519','V20190725023446','T20190725101239',150005,'2019-07-19','Rejected'),('B20190725101525','V20190725023446','T20190725101239',150050,'2019-07-19','Rejected'),('B20190725101554','V20190725022813','T20190725101322',160000,'2019-07-19','Accepted');
+(2,'ERP Tender Update',
+ 'Shortlisted vendors are requested to attend technical meeting');
 
-INSERT INTO tenderstatus VALUES ('T20190725022124','B20190725023010','Assigned','V20190725022813'),('T20190725022416','B20190725023512','Assigned','V20190725023446'),('T20190725022601','B20190725024243','Assigned','V20190725022813'),('T20190725101322','B20190725101554','Assigned','V20190725022813');
+-- =========================
+-- INSERT INTO VENDOR
+-- =========================
+INSERT INTO vendor VALUES
+('V1001','shrikant123','Shrikant Surve','9876543210',
+ 'shrikant@gmail.com','TechSolutions',
+ 'Pune, Maharashtra'),
 
-commit;
+('V1002','rahul123','Rahul Patil','9123456780',
+ 'rahul@gmail.com','Infosys',
+ 'Mumbai, Maharashtra'),
+
+('V1003','sneha123','Sneha Kulkarni','9988776655',
+ 'sneha@gmail.com','Wipro',
+ 'Nagpur, Maharashtra'),
+
+('V1004','amit123','Amit Sharma','9090909090',
+ 'amit@gmail.com','TCS',
+ 'Nashik, Maharashtra');
+
+-- =========================
+-- INSERT INTO BIDDER
+-- =========================
+INSERT INTO bidder VALUES
+('B1001','V1001','T1001',5100000,'2026-07-15','Pending'),
+
+('B1002','V1002','T1001',5005000,'2026-07-15','Accepted'),
+
+('B1003','V1003','T1002',760000,'2026-07-20','Rejected'),
+
+('B1004','V1001','T1004',455000,'2026-07-25','Accepted'),
+
+('B1005','V1004','T1005',8100000,'2026-08-10','Pending');
+
+-- =========================
+-- INSERT INTO TENDER STATUS
+-- =========================
+INSERT INTO tenderstatus VALUES
+('T1001','B1002','Assigned','V1002'),
+
+('T1004','B1004','Assigned','V1001');
+
+COMMIT;
 
 ```
 	
